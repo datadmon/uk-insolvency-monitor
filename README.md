@@ -94,4 +94,10 @@ The workflow runs once a day; a notice published that day is picked up the next 
 - [Daily UK winding-up petitions feed](https://datadmon.github.io/guides/uk-winding-up-petitions-daily-feed/): guide to the notice types and fields.
 - [apify-data-actors-examples](https://github.com/datadmon/apify-data-actors-examples): Python, Node.js, curl and n8n examples.
 
+## More templates by Daemon Data
+
+- [india-job-alerts](https://github.com/datadmon/india-job-alerts): daily new-job alerts from IIMJobs, Hirist, Foundit and Instahyre.
+- [uk-insolvency-monitor](https://github.com/datadmon/uk-insolvency-monitor): alerts when a watchlist company appears in The Gazette (winding-up petitions, administrations).
+- [india-ipo-gmp-tracker](https://github.com/datadmon/india-ipo-gmp-tracker): daily IPO GMP table, GMP history and Telegram alerts.
+
 Contains public sector information licensed under the Open Government Licence v3.0 (The Gazette). Not affiliated with The Gazette or Companies House. This tool alerts you to published notices; it is not legal or credit advice.
