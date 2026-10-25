@@ -1,0 +1,40 @@
+name: UK insolvency monitor
+
+on:
+  schedule:
+    - cron: "0 7 * * *" # every day at 07:00 UTC (08:00 BST); edit to change
+  workflow_dispatch: # "Run workflow" button for a first test
+
+permissions:
+  contents: write # commit data/ back to your copy
+  issues: write # open an issue when a watchlist company appears
+
+concurrency: insolvency-monitor
+
+jobs:
+  check:
+    # The template itself never runs; your copy (created with "Use this template") does.
+    if: github.repository != 'datadmon/uk-insolvency-monitor'
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Check the new Gazette notices
+        env:
+          APIFY_TOKEN: ${{ secrets.APIFY_TOKEN }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python insolvency_monitor.py
+      - name: Save the results in the repository
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data
+          git diff --cached --quiet || git commit -m "Gazette check $(date -u +%F)"
+          git push

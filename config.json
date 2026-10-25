@@ -1,0 +1,16 @@
+{
+  "watchlist": "watchlist.csv",
+  "noticeTypes": [
+    "2450",
+    "2452",
+    "2410"
+  ],
+  "publishedWithinDays": 3,
+  "maxNoticesPerRun": 1000,
+  "maxCostPerRunUsd": 2,
+  "reportAllNotices": false,
+  "dataDir": "data",
+  "notify": {
+    "githubIssue": true
+  }
+}
